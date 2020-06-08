@@ -115,6 +115,8 @@ let maze = [
 
 const findAllWaysOutOfMaze = function(maze) {
 
+  // I have 0 clue as how to go about this lol.
+
 };
 
 // 10.
@@ -135,7 +137,16 @@ const anagrams = function(prefix = ' ', sub) {
 
 // 11.
 
-const chart = function(obj) {
+const chart = function(obj, str = '') {
+  if (typeof(obj) !== 'object') {
+    console.log(str);
+  } else {
+
+    // right now, this doesn't do what I want it to do.  I will work on this with my mentor.
+
+    chart(Object.values(obj)[0], str + Object.keys(obj).join('\n') + '\n');
+
+  }
   
 };
 
