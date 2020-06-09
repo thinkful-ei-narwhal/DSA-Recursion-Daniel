@@ -113,11 +113,45 @@ let maze = [
 
 // 9.
 
-const findAllWaysOutOfMaze = function(maze) {
+const PrintPath = function (path, startPos, endPos){
+  console.log('Found path to the exit: ');
+  console.log(path);
+};
 
-  // I have 0 clue as how to go about this lol.
+
+
+const mazeAll = function(labyrinth, position=0, row, col, direction='S',path){
+  if(col<0 || row < 0){
+    return;
+  }
+  if(col>=labyrinth[0].length || row>=labyrinth.length){
+    return;
+  }
+   
+  path[position] = direction;
+  position++;
+
+  if (labyrinth[row][col] === 'e'){
+    PrintPath(path, 1, position - 1);
+    return;
+  }
+  if (labyrinth[row][col] === ' ') {
+    // The current cell is free. Mark it as visited
+    labyrinth[row][col] = 's';
+    // Invoke recursion to explore all possible directions
+    mazeAll(labyrinth,position,row, col - 1, 'L',path); // left
+    mazeAll(labyrinth,position,row - 1, col, 'U',path); // up
+    mazeAll(labyrinth,position,row, col + 1, 'R',path); // right
+    mazeAll(labyrinth,position,row + 1, col, 'D',path); // down
+    // Mark back the current cell as free
+    labyrinth[row][col] = ' ';
+  }
+  // Remove the last direction from the path
+  position--;
 
 };
+
+
 
 // 10.
 
@@ -137,60 +171,76 @@ const anagrams = function(prefix = ' ', sub) {
 
 // 11.
 
-const chart = function(obj, str = '') {
-  if (typeof(obj) !== 'object') {
-    console.log(str);
-  } else {
-
-    // right now, this doesn't do what I want it to do.  I will work on this with my mentor.
-
-    chart(Object.values(obj)[0], str + Object.keys(obj).join('\n') + '\n');
-
+const chart = function (node, indent=0) {
+  for (var key in node) {
+    console.log(' '.repeat(indent), key);
+    chart(node[key], indent + 4);
   }
-  
 };
 
 let obj = {
-  'Zuckerberg':
-    {'Schroepfer':
-        {'Bosworth':
-            ['Steve',
-              'Kyle',
-              'Andra'],
-        'Zhao':
-            ['Richie',
-              'Sofia',
-              'Jen']
-        },
-    'Schrage':
-        {'VanDyck':
-            ['Sabrina',
-              'Michelle',
-              'Josh'],
-        'Swain':
-            ['Blanch',
-              'Tom',
-              'Joe']
-        },
-    'Sandberg': 
-        {'Goler':
-            ['Eddie',
-              'Julie',
-              'Annie'],
-        'Hernandez':
-            ['Rowi',
-              'Inga',
-              'Morgan'],
-        'Moissinac':
-            ['Amy',
-              'Chuck',
-              'Vinni'],
-        'Kelley':
-            ['Eric',
-              'Ana',
-              'Wes']}
-    }
-};
+  'Zuckerberg': {		
+    'Schroepfer': {
+      'Bosworth': {
+        'Steve':{},
+        'Kyle':{},
+        'Andra':{}
+      },
+      'Zhao': {
+        'Richie':{},
+        'Sofia':{},
+        'Jen':{}
+      },
+      'Badros': {
+        'John':{},
+        'Mike':{},
+        'Pat':{}
+      },
+      'Parikh': {
+        'Zach':{},
+        'Ryan':{},
+        'Tes':{}
+      }
+    },
+    'Schrage': {
+      'VanDyck': {
+        'Sabrina':{},
+        'Michelle':{},
+        'Josh':{}
+      },
+      'Swain': {
+        'Blanch':{},
+        'Tom':{},
+        'Joe':{}
+      },
+      'Frankovsky': {
+        'Jasee':{},
+        'Brian':{},
+        'Margaret':{}
+      }
+    },
+    'Sandberg': {
+      'Goler': {
+        'Eddie':{},
+        'Julie':{},
+        'Annie':{}
+      },
+      'Hernandez': {
+        'Rowi':{},
+        'Inga':{},
+        'Morgan':{}
+      },
+      'Moissinac': {
+        'Amy':{},
+        'Chuck':{},
+        'Vinni':{}
+      },
+      'Kelley': {
+        'Eric':{},
+        'Ana':{},
+        'Wes':{}
+      }
+    }}};
 
 console.log(chart(obj));
 
